@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-rqsNyCUn8RuIrm/kvdjCkau8ptExTzgpN4Cg+TDUNhY='; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="light dark">
+<title>Observatoire CRA — Mesure n° 2026/1</title>
+<meta name="description" content="116 des 139 sites de membres Hexatrust mesurés le 26 octobre 2026 ne publient pas de security.txt. Mesure indépendante et reproductible de la préparation au Cyber Resilience Act.">
+<meta property="og:title" content="Observatoire CRA — Mesure n° 2026/1">
+<meta property="og:description" content="116 des 139 sites de membres Hexatrust mesurés le 26 octobre 2026 ne publient pas de security.txt. Mesure indépendante et reproductible de la préparation au Cyber Resilience Act.">
+<meta property="og:type" content="article">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://pazificateur69.github.io/observatoire-cra/">
+<meta property="og:url" content="https://pazificateur69.github.io/observatoire-cra/">
+<style>
+:root {
+  --papier: #ffffff;
+  --marge: #f2f3f0;
+  --encre: #161616;
+  --gris: #5e5e5e;
+  --filet: #d9dad6;
+  --tampon: #5a2d82;
+  --tampon-fond: color-mix(in srgb, var(--tampon) 10%, var(--papier));
+  --serif: Charter, "Bitstream Charter", "Iowan Old Style", "Sitka Text", Cambria, Georgia, serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --tete: 44px;
+  --texte: 680px;
+  --notes: 260px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --papier: #121314;
+    --marge: #191b1c;
+    --encre: #ebebe6;
+    --gris: #a5a6a0;
+    --filet: #33363a;
+    --tampon: #b99be0;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  background: var(--papier);
+  color: var(--encre);
+  scroll-padding-top: calc(var(--tete) + 24px);
+  scrollbar-color: var(--filet) var(--papier);
+  -webkit-text-size-adjust: 100%;
+}
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body {
+  margin: 0;
+  font: 18px/1.6 var(--serif);
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
+}
+::selection { background: color-mix(in srgb, var(--tampon) 24%, transparent); color: inherit; }
+a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .18em;
+  text-decoration-color: color-mix(in srgb, var(--encre) 40%, transparent);
+}
+a:hover { text-decoration-color: currentColor; }
+:focus-visible { outline: 2px solid var(--tampon); outline-offset: 3px; border-radius: 1px; }
+code { font-family: var(--mono); font-size: .84em; background: var(--marge); padding: .08em .3em; border-radius: 2px; }
+b { font-weight: 600; }
+.nw { white-space: nowrap; }
+
+.evitement {
+  position: absolute; left: 12px; top: -60px; z-index: 20;
+  padding: 10px 14px; background: var(--encre); color: var(--papier);
+  font: 600 14px/1.3 var(--sans); text-decoration: none;
+}
+.evitement:focus { top: 8px; }
+
+/* Titre courant */
+.tete {
+  position: sticky; top: 0; z-index: 10;
+  height: var(--tete);
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  padding: 0 clamp(16px, 3vw, 40px);
+  background: var(--papier);
+  border-bottom: 1px solid var(--encre);
+  font: 500 13px/1.2 var(--sans);
+  font-variant-numeric: tabular-nums;
+}
+.marque { justify-self: start; text-decoration: none; }
+.tete time { justify-self: end; }
+
+.cadre { display: grid; grid-template-columns: 248px minmax(0, 1fr); }
+
+/* Rail des articles */
+.rail { background: var(--marge); border-right: 1px solid var(--filet); }
+.rail ol {
+  position: sticky; top: var(--tete);
+  list-style: none; margin: 0; padding: 40px 20px 40px 24px;
+  display: grid; gap: 2px;
+  font: 14px/1.4 var(--sans);
+}
+.rail a {
+  position: relative; display: block;
+  padding: 8px 10px 8px 24px;
+  text-decoration: none; border-radius: 2px;
+}
+.rail a span { display: block; margin-bottom: 2px; font-size: 12px; color: var(--gris); font-variant-numeric: tabular-nums; }
+.rail a::before {
+  content: ""; position: absolute; left: 6px; bottom: 13px;
+  width: 9px; height: 9px;
+  border: 1.5px solid var(--filet);
+  transition: background-color .16s cubic-bezier(.2, .7, .2, 1), border-color .16s cubic-bezier(.2, .7, .2, 1);
+}
+.rail a:hover { background: color-mix(in srgb, var(--encre) 5%, transparent); }
+.rail a[aria-current] { font-weight: 600; }
+.rail a[aria-current] span { color: var(--tampon); }
+.rail a[aria-current]::before { background: var(--tampon); border-color: var(--tampon); }
+
+main { min-width: 0; padding: 0 clamp(16px, 4vw, 64px) 96px; }
+
+/* Intitulé de l'acte */
+.intitule { max-width: calc(var(--texte) + 48px + var(--notes)); padding: 48px 0 40px; text-align: center; }
+h1 { margin: 0 auto; max-width: 52ch; font-weight: 400; font-size: 20px; line-height: 1.5; text-wrap: balance; }
+h1 .acte { display: block; margin-bottom: 6px; font-size: 18px; font-variant-caps: small-caps; letter-spacing: .02em; }
+
+.sommaire { display: none; }
+
+/* Articles */
+.article {
+  display: grid;
+  grid-template-columns: minmax(0, var(--texte)) var(--notes);
+  column-gap: 48px;
+  padding: 48px 0;
+  border-top: 1px solid var(--filet);
+}
+.texte.large { grid-column: 1 / -1; max-width: calc(var(--texte) + 48px + var(--notes)); }
+h2 { margin: 0 0 22px; font: 600 24px/1.25 var(--serif); letter-spacing: -.005em; }
+.constat {
+  margin: 0 0 28px;
+  font-size: clamp(30px, 3.4vw, 44px); line-height: 1.14; letter-spacing: -.012em;
+  text-wrap: balance;
+}
+.constat em { font-style: normal; color: var(--tampon); font-variant-numeric: lining-nums tabular-nums; }
+.alinea { margin: 0 0 14px; max-width: 66ch; }
+.num { margin-right: .35em; font-family: var(--sans); font-size: .82em; color: var(--gris); font-variant-numeric: tabular-nums; }
+sup { line-height: 0; }
+sup a { padding: 0 1px; font: 600 12px var(--sans); text-decoration: none; }
+
+/* Notes de marge */
+.notes { padding-top: 52px; font: 14px/1.5 var(--sans); color: var(--gris); }
+.notes p { margin: 0 0 14px; padding: 6px 8px; margin-inline: -8px; border-radius: 2px; transition: background-color .16s cubic-bezier(.2, .7, .2, 1); }
+.notes p > a:first-child { margin-right: .3em; color: var(--encre); font-weight: 600; text-decoration: none; }
+.notes p:target { background: var(--tampon-fond); color: var(--encre); }
+.notes code { font-size: .9em; }
+
+/* Figures */
+.texte code { white-space: nowrap; }
+.notes code { white-space: normal; overflow-wrap: anywhere; }
+figure { margin: 32px 0 0; }
+.figure-releve { margin: 28px 0 30px; }
+figcaption { margin-bottom: 12px; font: 13px/1.45 var(--sans); color: var(--gris); }
+.fig { margin-right: .4em; color: var(--encre); font-weight: 600; }
+.releve { display: grid; grid-template-columns: repeat(35, 11px); gap: 4px; max-width: var(--texte); }
+.releve i, .legende i { display: block; width: 11px; height: 11px; border: 1.5px solid var(--encre); }
+.plein { background: var(--encre); }
+.hachure { background: repeating-linear-gradient(45deg, var(--encre) 0 1.5px, transparent 1.5px 3.8px); }
+.legende {
+  display: flex; flex-wrap: wrap; gap: 8px 24px;
+  margin: 14px 0 0; padding: 0; list-style: none;
+  font: 13px/1.4 var(--sans); color: var(--gris);
+}
+.legende li { display: flex; align-items: center; gap: 8px; }
+.legende b { color: var(--encre); font-variant-numeric: tabular-nums; }
+
+/* Signaux mesurés */
+.signaux { margin: 24px 0 8px; border-top: 1px solid var(--filet); }
+.signaux > div { display: grid; grid-template-columns: 190px 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--filet); }
+.signaux dt { font: 600 15px/1.4 var(--sans); }
+.signaux dt code { display: block; margin-bottom: 4px; padding: 0; background: none; font-size: 16px; font-weight: 600; }
+.signaux dt span { font-weight: 400; font-size: 13px; color: var(--gris); }
+.signaux dd { margin: 0; font-size: 17px; }
+
+.specimen pre {
+  margin: 0; padding: 20px 22px; overflow-x: auto;
+  background: var(--marge); border: 1px solid var(--filet);
+  font: 14px/1.7 var(--mono); tab-size: 2;
+}
+.specimen pre code { padding: 0; background: none; font-size: inherit; white-space: inherit; }
+.specimen .l { display: block; padding-left: 2ch; text-indent: -2ch; }
+
+/* Tableaux */
+.tableau { width: 100%; margin: 36px 0 0; border-collapse: collapse; font: 15px/1.4 var(--sans); font-variant-numeric: tabular-nums; }
+.tableau caption { margin-bottom: 10px; text-align: left; font: 13px/1.45 var(--sans); color: var(--gris); }
+.tableau th, .tableau td { padding: 9px 0; border-bottom: 1px solid var(--filet); text-align: left; font-weight: 400; vertical-align: baseline; }
+.tableau td { padding-left: 16px; text-align: right; white-space: nowrap; }
+.tableau .retrait th { padding-left: 20px; color: var(--gris); }
+.tableau .total th, .tableau .total td { font-weight: 600; border-bottom-color: var(--encre); }
+.tableau thead th { padding-left: 16px; border-bottom: 1px solid var(--encre); font-size: 12px; font-weight: 600; color: var(--gris); text-align: right; white-space: nowrap; }
+.registre { margin-top: 20px; }
+.registre th:nth-child(-n+3), .registre td:nth-child(-n+3) { text-align: left; }
+.registre thead th:first-child, .registre td:first-child { padding-left: 0; }
+.defile { overflow-x: auto; }
+
+/* Échéances et listes numérotées */
+.echeances { margin: 8px 0 24px; padding: 0; list-style: none; border-top: 1px solid var(--filet); }
+.echeances li { display: grid; grid-template-columns: 190px 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--filet); }
+.echeances time { font: 600 15px/1.6 var(--sans); font-variant-numeric: tabular-nums; }
+.echeances p { margin: 0; }
+.etapes { margin: 0; padding-left: 1.5em; max-width: 66ch; }
+.etapes li { margin-bottom: 12px; padding-left: .3em; }
+.etapes li::marker { font: 600 .82em var(--sans); color: var(--gris); }
+
+.contact { margin: 24px 0 0; font: 600 17px var(--sans); }
+.a-definir { display: inline-block; padding: 6px 10px; border: 1.5px dashed var(--gris); color: var(--gris); font-weight: 500; }
+
+.cloture { max-width: calc(var(--texte) + 48px + var(--notes)); margin: 0; padding: 40px 0 8px; border-top: 1px solid var(--filet); font-size: 17px; }
+.signataire { display: inline-block; margin-top: 6px; font-weight: 600; }
+
+.pied {
+  padding: 24px clamp(16px, 3vw, 40px) 40px;
+  border-top: 1px solid var(--encre);
+  font: 13px/1.6 var(--sans); color: var(--gris);
+}
+.pied p { margin: 0 0 6px; max-width: 100ch; }
+
+/* Sans rail : sommaire en tête, notes sous le texte */
+@media (max-width: 1100px) {
+  .cadre { grid-template-columns: minmax(0, 1fr); }
+  .rail { display: none; }
+  .sommaire { display: block; max-width: var(--texte); margin: 0 auto; border-top: 1px solid var(--filet); }
+  .sommaire summary {
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 0; cursor: pointer; list-style: none;
+    font: 600 15px/1.3 var(--sans);
+  }
+  .sommaire summary::-webkit-details-marker { display: none; }
+  .sommaire summary::before { content: ""; width: 9px; height: 9px; border: 1.5px solid var(--encre); flex: none; }
+  .sommaire[open] summary::before { background: var(--encre); }
+  .sommaire summary span { font-weight: 400; color: var(--gris); }
+  .sommaire ol {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); column-gap: 24px;
+    margin: 0 0 16px; padding: 0; list-style: none;
+    font: 14px/1.4 var(--sans);
+  }
+  .sommaire a { display: block; padding: 10px 0; border-top: 1px solid var(--filet); text-decoration: none; }
+  .sommaire a span { margin-right: .5em; font-size: 12px; color: var(--gris); }
+  .intitule { margin: 0 auto; max-width: var(--texte); }
+  .article { grid-template-columns: minmax(0, 1fr); max-width: var(--texte); margin: 0 auto; }
+  .texte.large { max-width: none; }
+  .cloture { max-width: var(--texte); margin: 0 auto; }
+  .notes { padding-top: 16px; }
+  .notes:empty { display: none; }
+}
+@media (max-width: 640px) {
+  body { font-size: 17px; }
+  .tete { grid-template-columns: 1fr auto; }
+  .tete-num { display: none; }
+  .intitule { padding: 32px 0 28px; text-align: left; }
+  h1 { font-size: 18px; }
+  h1 .acte { font-size: 16px; }
+  .releve { grid-template-columns: repeat(20, 11px); }
+  .specimen pre { padding: 14px 16px; font-size: 13px; white-space: pre-wrap; }
+  .specimen .l { overflow-wrap: anywhere; }
+  h2 { font-size: 22px; }
+  .article { padding: 36px 0; }
+  .signaux > div, .echeances li { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .texte code { white-space: normal; overflow-wrap: anywhere; }
+  /* Registre : une mesure par bloc, intitulé à gauche, valeur à droite */
+  .registre thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .registre tr { display: block; border-bottom: 1px solid var(--encre); }
+  .registre td, .registre td:nth-child(-n+3) {
+    display: flex; justify-content: space-between; gap: 16px;
+    padding: 8px 0; text-align: right; white-space: normal;
+  }
+  .registre td::before { content: attr(data-label); color: var(--gris); text-align: left; }
+  .registre tr td:last-child { border-bottom: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; }
+}
+@media print {
+  .tete { position: static; }
+  .rail, .evitement { display: none; }
+  .cadre { grid-template-columns: minmax(0, 1fr); }
+  a { text-decoration: none; }
+}
+
+</style>
+</head>
+<body>
+  <a class="evitement" href="#constat">Aller au constat</a>
+  <header class="tete">
+    <a class="marque" href="#haut"><b>Observatoire CRA</b> · indépendant</a>
+    <span class="tete-num">Mesure n° 2026/1</span>
+    <time datetime="2026-10-26">26.10.2026</time>
+  </header>
+  <div class="cadre">
+    <nav class="rail" aria-label="Articles de la mesure">
+      <ol>
+        <li><a href="#constat"><span>Article premier</span>Constat</a></li>
+        <li><a href="#mesure"><span>Article 2</span>Ce qui est mesuré</a></li>
+        <li><a href="#calendrier"><span>Article 3</span>Pourquoi maintenant</a></li>
+        <li><a href="#methode"><span>Article 4</span>Méthode</a></li>
+        <li><a href="#limites"><span>Article 5</span>Limites</a></li>
+        <li><a href="#registre"><span>Annexe I</span>Registre des mesures</a></li>
+        <li><a href="#fiche"><span>Annexe II</span>Demander sa fiche</a></li>
+      </ol>
+    </nav>
+    <main id="haut">
+      <div class="intitule">
+        <h1><span class="acte">Mesure n° 2026/1 de l'Observatoire CRA du 26 octobre 2026</span> relative à la publication, par les membres de l'annuaire Hexatrust, d'un canal de signalement des vulnérabilités au regard du règlement (UE) 2024/2847 (Cyber Resilience Act)</h1>
+      </div>
+      <details class="sommaire">
+        <summary>Sommaire <span>· 7 parties</span></summary>
+        <nav aria-label="Sommaire">
+          <ol>
+          <li><a href="#constat"><span>Article premier</span>Constat</a></li>
+        <li><a href="#mesure"><span>Article 2</span>Ce qui est mesuré</a></li>
+        <li><a href="#calendrier"><span>Article 3</span>Pourquoi maintenant</a></li>
+        <li><a href="#methode"><span>Article 4</span>Méthode</a></li>
+        <li><a href="#limites"><span>Article 5</span>Limites</a></li>
+        <li><a href="#registre"><span>Annexe I</span>Registre des mesures</a></li>
+        <li><a href="#fiche"><span>Annexe II</span>Demander sa fiche</a></li>
+          </ol>
+        </nav>
+      </details>
+      <section id="constat" class="article" aria-labelledby="t-constat">
+        <div class="texte">
+          <h2 id="t-constat">Article premier — Constat</h2>
+          <p class="constat"><em>116</em> des 139 sites mesurés <span class="nw">ne publient pas</span> de security.txt.</p>
+          <p class="alinea"><span class="num">1.</span> Le security.txt est le fichier standard, décrit par la <span class="nw">RFC 9116</span>, qui indique où signaler une faille de sécurité. 15 sites seulement en publient un conforme à la norme ; 11 y renvoient vers une politique de divulgation ; aucun ne publie d'avis de sécurité lisibles par machine (CSAF)<sup><a href="#n1" id="r1" aria-describedby="n1">1</a></sup>.</p>
+          <figure class="figure-releve">
+            <figcaption><span class="fig"><span class="nw">Figure 1</span></span> Relevé des 139 sites mesurés, un repère par site</figcaption>
+            <div class="releve" role="img" aria-label="11 sites avec security.txt et politique de divulgation, 12 avec security.txt seul, 116 sans aucun fichier."><i class="plein"></i><i class="plein"></i><i class="plein"></i><i class="plein"></i><i class="plein"></i><i class="plein"></i><i class="plein"></i><i class="plein"></i><i class="plein"></i><i class="plein"></i><i class="plein"></i><i class="hachure"></i><i class="hachure"></i><i class="hachure"></i><i class="hachure"></i><i class="hachure"></i><i class="hachure"></i><i class="hachure"></i><i class="hachure"></i><i class="hachure"></i><i class="hachure"></i><i class="hachure"></i><i class="hachure"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <ul class="legende">
+              <li><i class="plein"></i>security.txt et politique de divulgation <b>11</b></li>
+              <li><i class="hachure"></i>security.txt seul <b>12</b></li>
+              <li><i></i>aucun fichier <b>116</b></li>
+            </ul>
+          </figure>
+          <p class="alinea"><span class="num">2.</span> Depuis le <span class="nw">11 septembre</span> 2026, les fabricants de produits comportant des éléments numériques doivent déclarer sous <span class="nw">24 heures</span> toute vulnérabilité activement exploitée dont ils ont connaissance<sup><a href="#n2" id="r2" aria-describedby="n2">2</a></sup>. Un canal public de signalement est la porte par laquelle cette connaissance arrive.</p>
+          <p class="alinea"><span class="num">3.</span> Le taux de 83,5 % est un minimum : tout site qui bloque, défie ou ne répond pas est compté hors calcul, jamais comme absent.</p>
+        </div>
+        <aside class="notes" aria-label="Notes de l'article premier">
+        <p id="n1"><a href="#r1" aria-label="Retour à l'appel de note 1">1</a> Champ : annuaire public des 159 membres <a href="https://www.hexatrust.com/membres/">Hexatrust</a>, groupement d'entreprises françaises de cybersécurité, collecté le 26 octobre 2026. 20 sites non mesurables sont exclus du calcul (voir l'<span class="nw">article 4</span>).</p>
+        <p id="n2"><a href="#r2" aria-label="Retour à l'appel de note 2">2</a> Règlement (UE) 2024/2847 du <span class="nw">23 octobre</span> 2024 (Cyber Resilience Act), <span class="nw">article 14</span>.</p>
+          <p class="note-libre">Aucune entreprise n'est nommée. Chacune peut demander sa fiche (<span class="nw">annexe II</span>).</p>
+        </aside>
+      </section>
+      <section id="mesure" class="article" aria-labelledby="t-mesure">
+        <div class="texte">
+          <h2 id="t-mesure">Article 2 — Ce qui est mesuré</h2>
+          <p class="alinea">L'observatoire lit trois signaux publiés pour être lus par des machines. Chacun porte le nom littéral du champ ou du fichier cherché.</p>
+          <dl class="signaux">
+            <div>
+              <dt><code>Contact:</code> <span>le canal de signalement</span></dt>
+              <dd>Un fichier <code>security.txt</code> servi en https, à l'adresse <code>/.well-known/security.txt</code>, avec au moins un champ <code>Contact</code>. C'est l'adresse à laquelle un chercheur signale une faille. <b>23 sites sur 139, 16,5 %.</b></dd>
+            </div>
+            <div>
+              <dt><code>Policy:</code> <span>la politique de divulgation</span></dt>
+              <dd>Un champ <code>Policy</code> dont la valeur est un lien https vers les règles de signalement et de divulgation coordonnée : délais, engagements, conduite attendue. Une phrase écrite à la place du lien n'est pas comptée. <b>11 sites, 7,9 %.</b></dd>
+            </div>
+            <div>
+              <dt><code>CSAF</code> <span>les avis lisibles par machine</span></dt>
+              <dd>Un fichier <code>provider-metadata.json</code> au format <span class="nw">CSAF 2</span>.0, qui permet aux clients de récupérer automatiquement les avis de sécurité d'un éditeur<sup><a href="#n3" id="r3" aria-describedby="n3">3</a></sup>. <b>Aucun site.</b></dd>
+            </div>
+          </dl>
+          <figure class="specimen">
+            <figcaption><span class="fig"><span class="nw">Figure 2</span></span> Exemple de security.txt complet, à l'échelle réelle. Fichier fictif : le domaine <code>editeur.example</code> est réservé aux exemples.</figcaption>
+            <pre><code><span class="l">Contact: mailto:securite@editeur.example</span><span class="l">Expires: 2027-10-26T00:00:00Z</span><span class="l">Policy: https://editeur.example/divulgation</span><span class="l">Preferred-Languages: fr, en</span><span class="l">Canonical: https://editeur.example/.well-known/security.txt</span><span class="l">CSAF: https://editeur.example/.well-known/csaf/provider-metadata.json</span></code></pre>
+          </figure>
+          <table class="tableau">
+            <caption><span class="fig"><span class="nw">Tableau 1</span></span> Détail du relevé du 26 octobre 2026</caption>
+            <tbody>
+              <tr><th scope="row">Membres de l'annuaire</th><td>159</td><td></td></tr>
+              <tr class="retrait"><th scope="row">site non renseigné (réseau social)</th><td>1</td><td></td></tr>
+              <tr class="retrait"><th scope="row">site injoignable</th><td>6</td><td></td></tr>
+              <tr class="retrait"><th scope="row">réponse indéterminée (blocage, défi anti-robot, délai)</th><td>13</td><td></td></tr>
+              <tr class="total"><th scope="row">Sites mesurables</th><td>139</td><td>100,0 %</td></tr>
+              <tr><th scope="row">sans security.txt</th><td>116</td><td>83,5 %</td></tr>
+              <tr><th scope="row">avec security.txt</th><td>23</td><td>16,5 %</td></tr>
+              <tr class="retrait"><th scope="row">dont conforme à la <span class="nw">RFC 9116</span><sup><a href="#n4" id="r4" aria-describedby="n4">4</a></sup></th><td>15</td><td>10,8 %</td></tr>
+              <tr class="retrait"><th scope="row">dont sans date d'expiration</th><td>7</td><td></td></tr>
+              <tr class="retrait"><th scope="row">dont expiré</th><td>1</td><td></td></tr>
+              <tr class="retrait"><th scope="row">dont à l'ancien emplacement (<code>/security.txt</code>)</th><td>1</td><td></td></tr>
+              <tr class="retrait"><th scope="row">dont adresse de contact écrite sans <code>mailto:</code></th><td>3</td><td></td></tr>
+              <tr class="retrait"><th scope="row">dont champ <code>Policy</code> rédigé en phrase, sans lien</th><td>1</td><td></td></tr>
+              <tr><th scope="row">avec politique de divulgation</th><td>11</td><td>7,9 %</td></tr>
+              <tr><th scope="row">avec avis CSAF</th><td>0</td><td>0,0 %</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <aside class="notes" aria-label="Notes de l'article 2">
+        <p id="n3"><a href="#r3" aria-label="Retour à l'appel de note 3">3</a> Common Security Advisory Framework, standard OASIS. Cherché via le champ <code>CSAF</code> du security.txt, à <code>/.well-known/csaf/provider-metadata.json</code> et sur <code>csaf.data.security.&lt;domaine&gt;</code>.</p>
+        <p id="n4"><a href="#r4" aria-label="Retour à l'appel de note 4">4</a> Conforme : un champ <code>Contact</code>, un seul champ <code>Expires</code> à une date future, fichier servi en <code>text/plain</code> et en https, champs <code>Contact</code> écrits comme des adresses (<code>mailto:</code>, <code>tel:</code>, <code>https://</code>) et champs <code>Policy</code> comme des liens (<span class="nw">RFC 9116</span>, sections 2.5 et 3).</p>
+        </aside>
+      </section>
+      <section id="calendrier" class="article" aria-labelledby="t-calendrier">
+        <div class="texte">
+          <h2 id="t-calendrier">Article 3 — Pourquoi maintenant</h2>
+          <ol class="echeances">
+            <li>
+              <time datetime="2026-09-11">11 septembre 2026</time>
+              <p><b>En vigueur.</b> Les fabricants déclarent toute vulnérabilité activement exploitée : alerte précoce sous <span class="nw">24 heures</span>, notification sous <span class="nw">72 heures</span>, rapport final au plus tard <span class="nw">14 jours</span> après la disponibilité d'un correctif. Ils déclarent aussi tout incident grave touchant la sécurité de leurs produits, avec les mêmes délais de 24 et <span class="nw">72 heures</span> et un rapport final dans le mois qui suit la notification. Les déclarations passent par la plateforme unique de l'ENISA<sup><a href="#n5" id="r5" aria-describedby="n5">5</a></sup>. L'obligation vaut aussi pour les produits déjà sur le marché.</p>
+            </li>
+            <li>
+              <time datetime="2027-12-11">11 décembre 2027</time>
+              <p><b>À venir.</b> Le reste du règlement s'applique, dont l'obligation de mettre en place une politique de divulgation coordonnée des vulnérabilités et de fournir une adresse de contact pour les signalements<sup><a href="#n6" id="r6" aria-describedby="n6">6</a></sup>.</p>
+            </li>
+          </ol>
+          <p class="alinea">Le règlement n'impose pas le format security.txt. Il impose un point de contact et une politique de divulgation ; le security.txt est la manière standard et lisible par machine de les publier. Son absence ne prouve pas qu'une entreprise n'a aucun canal, elle prouve que ce canal n'est pas publié là où les chercheurs et les outils le cherchent.</p>
+        </div>
+        <aside class="notes" aria-label="Notes de l'article 3">
+        <p id="n5"><a href="#r5" aria-label="Retour à l'appel de note 5">5</a> Commission européenne, <a href="https://digital-strategy.ec.europa.eu/en/policies/cra-reporting">Cyber Resilience Act — Reporting obligations</a>.</p>
+        <p id="n6"><a href="#r6" aria-label="Retour à l'appel de note 6">6</a> Règlement (UE) 2024/2847, <span class="nw">annexe I</span>, <span class="nw">partie II</span>, et <span class="nw">article 13</span> (point de contact unique).</p>
+        </aside>
+      </section>
+      <section id="methode" class="article" aria-labelledby="t-methode">
+        <div class="texte">
+          <h2 id="t-methode">Article 4 — Méthode</h2>
+          <ol class="etapes">
+            <li><b>Échantillon.</b> L'annuaire public des membres Hexatrust est collecté en entier, sans tri, le 26 octobre 2026 : 159 membres, éditeurs comme prestataires de services. L'annuaire ne permet pas de les distinguer, et aucun classement n'est fait à la main.</li>
+            <li><b>Requêtes.</b> Pour chaque site, uniquement des requêtes GET, sous un identifiant de robot déclaré (<code>ObservatoireCRA</code>), vers des fichiers publiés pour être lus par des machines. Aucun test d'intrusion, aucun formulaire, aucune page privée.</li>
+            <li><b>Recherche du security.txt.</b> À <code>/.well-known/security.txt</code> sur l'hôte déclaré, le domaine nu et sa variante <code>www</code>, puis à l'ancien emplacement <code>/security.txt</code>. Une redirection vers un autre domaine de la même entreprise est acceptée.</li>
+            <li><b>Classement.</b> <em>Présent</em> : un fichier texte servi en https avec au moins un <code>Contact</code>. <em>Absent</em> : le serveur répond clairement qu'il n'y a rien (erreur 404, ou page du site renvoyée à la place du fichier). <em>Indéterminé</em> : blocage, défi anti-robot, panne ou délai dépassé après un second essai. Les indéterminés sont exclus du calcul.</li>
+            <li><b>Contrôle.</b> Lors de la première mesure, tous les sites classés présents et seize sites classés absents ont été vérifiés à la main ; un faux positif (fiche d'annuaire pointant vers un réseau social) et un défi anti-robot compté à tort comme absent ont été corrigés avant publication. Les règles de forme (adresse de contact, lien de politique) ont ensuite été appliquées aux fichiers déjà lus, sans nouvelle requête : une politique rédigée en phrase a été retirée du décompte.</li>
+            <li><b>Reproductibilité.</b> Les scripts sont publics : <code>node scripts/collecte-hexatrust.mjs</code>, puis <code>node scripts/mesure.mjs</code>. Les chiffres de cette page sont générés depuis la synthèse, sans saisie manuelle.</li>
+          </ol>
+        </div>
+        <aside class="notes" aria-label="Notes de l'article 4">
+          <p class="note-libre">Mesure du 26 octobre 2026, 11:38 (heure de Paris).</p>
+        </aside>
+      </section>
+      <section id="limites" class="article" aria-labelledby="t-limites">
+        <div class="texte">
+          <h2 id="t-limites">Article 5 — Limites</h2>
+          <ol class="etapes">
+            <li>Le security.txt n'est pas le seul canal possible. Une entreprise peut publier une adresse de signalement ailleurs sur son site ; elle n'est alors pas trouvable par les outils automatiques, mais elle existe.</li>
+            <li>L'échantillon mélange fabricants et prestataires de services. Le CRA s'applique aux fabricants de produits comportant des éléments numériques ; un cabinet de conseil ou un logiciel fourni uniquement en ligne (SaaS) en est en principe exclu.</li>
+            <li>Une mesure est un instantané. Un fichier publié le lendemain n'apparaît qu'à la mesure suivante.</li>
+            <li>20 sites sur 159 n'ont pas pu être mesurés. Si les 13 sites indéterminés publiaient tous un security.txt, le taux d'absence serait encore de 76,3 % des 152 sites joignables ; si les 20 sites non mesurés en publiaient tous un, il serait de 73,0 % des 159 membres.</li>
+            <li>Aucune entreprise n'est nommée. Les résultats individuels ne sont communiqués qu'à l'entreprise concernée, sur demande.</li>
+          </ol>
+        </div>
+        <aside class="notes" aria-label="Notes de l'article 5"></aside>
+      </section>
+      <section id="registre" class="article" aria-labelledby="t-registre">
+        <div class="texte large">
+          <h2 id="t-registre">Annexe I — Registre des mesures</h2>
+          <p class="alinea">Chaque mesure reste au registre. Les mesures suivantes s'ajoutent à la suite, sans modifier les précédentes.</p>
+          <div class="defile" tabindex="0" role="region" aria-label="Registre des mesures, défilable">
+          <table class="tableau registre">
+            <thead>
+              <tr><th scope="col">N°</th><th scope="col">Date</th><th scope="col">Échantillon</th><th scope="col">Sites mesurés</th><th scope="col">Sans security.txt</th><th scope="col">Conformes <span class="nw">RFC 9116</span></th><th scope="col">Politique</th><th scope="col">CSAF</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="N°">2026/1</td>
+                <td data-label="Date"><time datetime="2026-10-26">26.10.2026</time></td>
+                <td data-label="Échantillon">Annuaire des membres Hexatrust</td>
+                <td data-label="Sites mesurés">139</td>
+                <td data-label="Sans security.txt">83,5 %</td>
+                <td data-label="Conformes RFC 9116">10,8 %</td>
+                <td data-label="Politique">7,9 %</td>
+                <td data-label="CSAF">0,0 %</td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+      </section>
+      <section id="fiche" class="article" aria-labelledby="t-fiche">
+        <div class="texte">
+          <h2 id="t-fiche">Annexe II — Demander sa fiche</h2>
+          <p class="alinea">Chaque entreprise mesurée peut recevoir gratuitement sa fiche : les trois signaux pour ses domaines, ce qui a été trouvé et à quelle adresse, un security.txt prêt à adapter, et les échéances du CRA qui la concernent.</p>
+          <p class="alinea">La même adresse sert à signaler une erreur de classement : toute correction justifiée est appliquée à la mesure suivante et mentionnée au registre.</p>
+          <p class="contact"><a href="mailto:observatoire.cra@proton.me">observatoire.cra@proton.me</a></p>
+        </div>
+      </section>
+      <p class="cloture">Fait le 26 octobre 2026, pour l'Observatoire CRA,<br><span class="signataire">Alessandro Gagliardi</span></p>
+    </main>
+  </div>
+  <footer class="pied">
+    <p><b>Observatoire CRA</b> — projet indépendant, sans lien avec Hexatrust, l'ANSSI, l'ENISA ni les institutions de l'Union européenne. Responsable : Alessandro Gagliardi.</p>
+    <p>Références : <a href="https://www.rfc-editor.org/rfc/rfc9116"><span class="nw">RFC 9116</span></a> · <a href="https://eur-lex.europa.eu/eli/reg/2024/2847/oj">Règlement (UE) 2024/2847</a> · <a href="https://docs.oasis-open.org/csaf/csaf/v2.0/csaf-v2.0.html"><span class="nw">CSAF 2</span>.0</a> · <a href="https://www.hexatrust.com/membres/">Annuaire Hexatrust</a></p>
+  </footer>
+  <script>const liens=[...document.querySelectorAll('.rail a')];const sections=liens.map(a=>document.getElementById(a.hash.slice(1)));let attente=false;const maj=()=>{attente=false;const seuil=innerHeight*.4;let i=0;sections.forEach((s,k)=>{if(s.getBoundingClientRect().top<=seuil)i=k});if(innerHeight+scrollY>=document.documentElement.scrollHeight-2)i=sections.length-1;liens.forEach((a,k)=>k===i?a.setAttribute('aria-current','location'):a.removeAttribute('aria-current'))};addEventListener('scroll',()=>{if(!attente){attente=true;requestAnimationFrame(maj)}},{passive:true});addEventListener('resize',maj);maj();</script>
+</body>
+</html>

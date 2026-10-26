@@ -1,0 +1,50 @@
+{
+  "mesure_le": "2026-10-26T10:38:11.720Z",
+  "echantillon": {
+    "nom": "Annuaire des membres Hexatrust",
+    "source": "https://www.hexatrust.com/membres/",
+    "collecte_le": "2026-10-26T10:38:11.605Z"
+  },
+  "membres": 159,
+  "sites_non_renseignes": 1,
+  "injoignables": 6,
+  "indetermines": 13,
+  "mesurables": 139,
+  "canal": {
+    "nombre": 23,
+    "pct": 16.5
+  },
+  "sans_canal": {
+    "nombre": 116,
+    "pct": 83.5
+  },
+  "politique": {
+    "nombre": 11,
+    "pct": 7.9
+  },
+  "csaf": {
+    "nombre": 0,
+    "pct": 0
+  },
+  "aucun_signal": {
+    "nombre": 116,
+    "pct": 83.5
+  },
+  "parmi_les_security_txt": {
+    "nombre": 23,
+    "conformes_rfc9116": 15,
+    "expires": 1,
+    "sans_expires": 7,
+    "emplacement_herite": 1,
+    "via_autre_domaine": 1,
+    "contact_mal_forme": 3,
+    "policy_sans_lien": 1
+  },
+  "score": [
+    116,
+    12,
+    11,
+    0
+  ],
+  "requalifiee_le": "2026-10-26T11:24:49.404Z"
+}

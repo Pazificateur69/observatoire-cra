@@ -1,0 +1,78 @@
+# Remesure mensuelle et publication de la page sur GitHub Pages.
+# Prérequis : Settings > Pages > Source = « GitHub Actions » ;
+# variables du dépôt (Settings > Secrets and variables > Actions > Variables) :
+#   OBSERVATOIRE_CONTACT       ajouté à l'identifiant du robot, ex. https://observatoire-cra.fr
+#   OBSERVATOIRE_CONTACT_PAGE  adresse de demande de fiche, ex. mailto:contact@domaine.fr
+#   OBSERVATOIRE_AUTEUR        nom affiché dans la formule de clôture
+#   OBSERVATOIRE_SITE          adresse publique du site (Canonical du security.txt)
+# Les résultats par entreprise (data/prive/) restent dans l'exécuteur et ne sont jamais commis.
+name: Observatoire CRA
+
+on:
+  schedule:
+    - cron: '0 6 1 * *' # le 1er de chaque mois à 6 h UTC
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['site/**', 'scripts/page.mjs', 'scripts/page.css', 'data/synthese-*.json']
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: observatoire
+  cancel-in-progress: false
+
+env:
+  OBSERVATOIRE_CONTACT: ${{ vars.OBSERVATOIRE_CONTACT }}
+  OBSERVATOIRE_CONTACT_PAGE: ${{ vars.OBSERVATOIRE_CONTACT_PAGE }}
+  OBSERVATOIRE_AUTEUR: ${{ vars.OBSERVATOIRE_AUTEUR }}
+  OBSERVATOIRE_SITE: ${{ vars.OBSERVATOIRE_SITE }}
+
+jobs:
+  mesure:
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Collecter l'annuaire
+        run: node scripts/collecte-hexatrust.mjs > data/hexatrust-membres.json
+      - name: Mesurer
+        run: node scripts/mesure.mjs data/hexatrust-membres.json
+      - name: Générer la page
+        run: node scripts/page.mjs
+      - name: Enregistrer la synthèse et la page
+        run: |
+          git config user.name "observatoire-cra[bot]"
+          git config user.email "observatoire-cra@users.noreply.github.com"
+          git add data/synthese-*.json data/hexatrust-membres.json site/
+          git diff --cached --quiet || git commit -m "Mesure du $(date -u +%F)"
+          git push
+
+  publier:
+    needs: mesure
+    if: always() && (needs.mesure.result == 'success' || needs.mesure.result == 'skipped')
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploiement.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Régénérer la page avec les variables du dépôt
+        run: node scripts/page.mjs
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deploiement
+        uses: actions/deploy-pages@v4

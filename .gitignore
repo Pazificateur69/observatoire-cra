@@ -1,0 +1,12 @@
+# Résultats et fiches par entreprise : jamais publiés
+data/prive/
+
+# Documents internes : restent sur le poste, jamais dans le dépôt public
+MODELE.md
+DIFFUSION.md
+PRODUCT.md
+pitch/
+.impeccable/
+
+.claude/
+.DS_Store
