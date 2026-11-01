@@ -1,7 +1,7 @@
 {
   "source": "https://www.hexatrust.com/membres/",
-  "collecte_le": "2026-10-26T10:38:11.605Z",
-  "total": 159,
+  "collecte_le": "2026-11-01T12:50:54.767Z",
+  "total": 162,
   "membres": [
     {
       "nom": "6cure",
@@ -329,9 +329,19 @@
       "fiche": "https://www.hexatrust.com/membres/filigran/"
     },
     {
+      "nom": "FLEURET AI",
+      "site": "https://fleuret.ai/",
+      "fiche": "https://www.hexatrust.com/membres/fleuret-ai/"
+    },
+    {
       "nom": "GALEAX (CoreUpdate)",
       "site": "https://galeax.com",
       "fiche": "https://www.hexatrust.com/membres/galeax/"
+    },
+    {
+      "nom": "GALINK",
+      "site": "https://www.galink.com/",
+      "fiche": "https://www.hexatrust.com/membres/galink/"
     },
     {
       "nom": "Gatewatcher",
@@ -352,6 +362,11 @@
       "nom": "Hucency (ex Avant de Cliquer)",
       "site": "https://www.hucency.com/",
       "fiche": "https://www.hexatrust.com/membres/avant-de-cliquer/"
+    },
+    {
+      "nom": "IDAAAS",
+      "site": "https://idaaas.com/fr/index.html",
+      "fiche": "https://www.hexatrust.com/membres/idaaas/"
     },
     {
       "nom": "IDEMIA SECURE TRANSACTIONS",
